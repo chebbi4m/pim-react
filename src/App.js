@@ -1,86 +1,168 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState } from 'react';
-import { SignUp } from './pages/login-signup/signup'
+import React, { useState } from 'react';
+import './App.css'; // Import CSS file
+import {SignUp} from './pages/login-signup/signup.js';
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// Define the User model
+class User {
+  constructor(id, username, email,ProhibitedProductTypes
+    , password, role, image, phoneNumber, verified) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.ProhibitedProductTypes = ProhibitedProductTypes;
+    this.password = password;
+    this.role = role;
+    this.image = image;
+    this.phoneNumber = phoneNumber;
+    this.verified = verified;
+  }
+
+  static fromJson(json) {
+    return new User(
+      json._id,
+      json.Username,
+      json.Email,
+      json.Password,
+      json.ProhibitedProductTypes,
+      json.Role,
+      json.image,
+      json.PhoneNumber,
+      json.Verified
+    );
+  }
+}
+const navigateToSignUp = () => {
+  console.log("success");
+  window.location.href = "/signup"; // Navigate to the sign-up page directly
+};
+
+
+
+function LoginForm(props) {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Username/Email"
+        value={props.username}
+        onChange={(e) => props.setUsername(e.target.value)}
+      />
+      <br />
+      <div className="password-input">
+        <input
+          type={passwordVisible ? "text" : "password"}
+          placeholder="Password"
+          value={props.password}
+          onChange={(e) => props.setPassword(e.target.value)}
+        />
+        <label className="password-toggle">
+          <input
+            type="checkbox"
+            checked={passwordVisible}
+            onChange={() => setPasswordVisible(!passwordVisible)}
+          />
+          <span>Show Password</span>
+        </label>
+      </div>
+      <br />
+      <button onClick={props.handleLogin}>Login</button>
+    </div>
+  );
+}
+
+function LoginPage() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    if (!username || !password) {
+      alert('Please enter both username/email and password');
+      return;
+    }
+
+    try {
+      const response = await AuthService.signIn(username, password);
+      console.log('Response:', response);
+      if (response.status === 200) {
+        const userData = await response.json();
+        const user = User.fromJson(userData); 
+        console.log(user);
+        // Additional control for user role
+        if (user.role !== 'partner' && user.role !== 'admin') {
+          alert('This account is for our mobile application and for payments only');
+          return;
+        }
+
+        alert('Login Successful!');
+        // Handle successful login redirection or other actions here
+      } else if (response.status === 404) {
+        alert('User not found');
+      } else if (response.status === 401) {
+        alert('Invalid password');
+      } else {
+        alert('Failed to login. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Failed to login. Please try again later.');
+    }
+  };
+
+  return (
+    <div className="login-page">
+      <div className="login-form">
+        <h2>The Future For Kids Payment</h2>
+        <img src="avatar_kids.png" alt="Avatar" />
+        <br />
+        <LoginForm
+          username={username}
+          password={password}
+          setUsername={setUsername}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+        />
+        <div className="additional-text">
+         <span onClick={navigateToSignUp}>Don't have an account?</span>
+          <br />
+          <span>Forgot password?</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
-    <main className='main__container'>
-      <SignUp/>
-    </main>
-    
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </Router>
   );
 }
-
-const products = [
-  { title: 'Cabbage', isFruit: false, id: 1 },
-  { title: 'Garlic', isFruit: false, id: 2 },
-  { title: 'Apple', isFruit: true, id: 3 },
-];
-
-function ShoppingList() {
-  const listItems = products.map(product =>
-    <li
-      key={product.id}
-      style={{
-        color: product.isFruit ? 'magenta' : 'darkgreen'
-      }}
-    >
-      {product.title}
-    </li>
-  );
-
-  return (
-    <ul>{listItems}</ul>
-  );
-}
-
-function MyButton() {
-  
-  const [count, setCount] = useState(0);
-  
-  function handleClick() {
-    setCount(count + 1);
-    let btn = document.getElementById("buttonnn");
-    btn.classList.toggle("btnColor");
-  }
-
-  return (
-    <button id='buttonnn' onClick={handleClick}>
-      Clicked {count} times
-    </button>
-  );
-}
-
-function RegisterPage() {
-
-  return(
-    <div className='register__section'>
-      <div className='register__container'>
-        <div className='register__title'>Register Now</div>
-        <div className='r__username__container'>
-          <div className='r__text r__username__text'>username :</div>
-          <div className='r__input r__username__input'></div>
-        </div>
-        <div className='r__email__container'>
-          <div className='r__text r__email__text'> email :</div>
-          <div className='r__input r__email__input'></div>
-        </div>
-        <div className='r__password__container'>
-          <div className='r__text r__password__text'>password :</div>
-          <div className='r__input r__password__input'></div>
-        </div>
-        <div className='r__cpassword__container'>
-          <div className='r__text r__cpassword__text'>confirm the password :</div>
-          <div className='r__input r__cpassword__input'></div>
-        </div>
-      </div>
-      
-    </div>
-    
-  );
-
-}
-
 
 export default App;
+
+// AuthService implementation
+const AuthService = {
+  signIn: async (username, password) => {
+    try {
+      const response = await fetch('http://localhost:9090/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ identifier: username, password }),
+      });
+      return response;
+    } catch (error) {
+      throw new Error('Failed to sign in');
+    }
+  },
+};
