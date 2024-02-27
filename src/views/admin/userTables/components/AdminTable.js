@@ -51,7 +51,7 @@ export default function ColumnsTable(props) {
         prepareRow,
         initialState,
     } = tableInstance;
-    initialState.pageSize = 5;
+    initialState.pageSize = 15;
 
     const textColor = useColorModeValue("secondaryGray.900", "white");
     const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
@@ -71,6 +71,8 @@ export default function ColumnsTable(props) {
             if (response.ok) {
                 // If request is successful, update UI or state as necessary
                 console.log('User ban status toggled successfully');
+                window.location.reload();
+
             } else {
                 // If request fails, handle error
                 console.error('Failed to toggle user ban status');
@@ -150,10 +152,8 @@ export default function ColumnsTable(props) {
 
 
                                         );
-                                    } else if (cell.column.Header === "Password") {
-                                        // Display password as asterisks for security reasons
-                                        data = "********";
-                                    } else if (cell.column.Header === "Verified") {
+                                    }
+                                     else if (cell.column.Header === "Verified") {
                                         // Display verification status as icons
                                         data = (
                                             <Icon

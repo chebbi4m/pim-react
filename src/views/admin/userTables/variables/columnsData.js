@@ -18,10 +18,7 @@ export const ycolumnsDataComplex = [
   },
 ];
 export const adminsData = [
-  {
-    Header: "ID",
-    accessor: "_id",
-  },
+
   {
     Header: "Username",
     accessor: "Username",
@@ -30,10 +27,7 @@ export const adminsData = [
     Header: "Email",
     accessor: "Email",
   },
-  {
-    Header: "Password",
-    accessor: "Password",
-  },
+
   {
     Header: "Phone Number",
     accessor: "PhoneNumber",
@@ -59,10 +53,7 @@ export const adminsData = [
     accessor: "image",
   },
 
-  {
-    Header: "__v",
-    accessor: "__v",
-  },
+
 ];
 
 

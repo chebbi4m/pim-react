@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Icon } from "@chakra-ui/react";
 import {
   MdBarChart,
@@ -16,14 +15,14 @@ import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
 import RTL from "views/admin/rtl";
 import UserTables from "views/admin/userTables";
+import ProduitTables from "views/admin/marketplace";
+import addProduit from "views/auth/signUp";
 
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentered from "views/auth/signUp";
 
 const routes = [
-
-
   {
     name: "Users Tables",
     layout: "/admin",
@@ -31,6 +30,14 @@ const routes = [
     path: "/users",
     component: UserTables,
   },
+  {
+    name: "Produits Tables",
+    layout: "/admin",
+    icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
+    path: "/produits",
+    component: ProduitTables,
+  },
+ 
 ];
 
 export default routes;
