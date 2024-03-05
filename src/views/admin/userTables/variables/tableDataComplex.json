@@ -1,0 +1,68 @@
+[
+  {
+    "Username": "Marketplace",
+    "Email": "marketplace@example.com",
+    "Password": "$2b$10$ZekuRD1SGWlJampwoeh..O2v1JOl6kixYMaH3KyMBhzYGjjfiotg.",
+    "Role": "admin",
+    "image": "default image",
+    "PhoneNumber": 1234567890,
+    "ProhibitedProductTypes": ["type1", "type2"],
+    "Verified": true,
+    "__v": 0
+  },
+  {
+    "Username": "Marketplace",
+    "Email": "marketplace@example.com",
+    "Password": "$2b$10$ZekuRD1SGWlJampwoeh..O2v1JOl6kixYMaH3KyMBhzYGjjfiotg.",
+    "Role": "admin",
+    "image": "default image",
+    "PhoneNumber": 1234567890,
+    "ProhibitedProductTypes": ["type1", "type2"],
+    "Verified": true,
+    "__v": 0
+  },
+  {
+    "Username": "Marketplace",
+    "Email": "marketplace@example.com",
+    "Password": "$2b$10$ZekuRD1SGWlJampwoeh..O2v1JOl6kixYMaH3KyMBhzYGjjfiotg.",
+    "Role": "admin",
+    "image": "default image",
+    "PhoneNumber": 1234567890,
+    "ProhibitedProductTypes": ["type1", "type2"],
+    "Verified": true,
+    "__v": 0
+  },
+  {
+    "Username": "Marketplace",
+    "Email": "marketplace@example.com",
+    "Password": "$2b$10$ZekuRD1SGWlJampwoeh..O2v1JOl6kixYMaH3KyMBhzYGjjfiotg.",
+    "Role": "admin",
+    "image": "default image",
+    "PhoneNumber": 1234567890,
+    "ProhibitedProductTypes": ["type1", "type2"],
+    "Verified": true,
+    "__v": 0
+  },
+  {
+    "Username": "Marketplace",
+    "Email": "marketplace@example.com",
+    "Password": "$2b$10$ZekuRD1SGWlJampwoeh..O2v1JOl6kixYMaH3KyMBhzYGjjfiotg.",
+    "Role": "admin",
+    "image": "default image",
+    "PhoneNumber": 1234567890,
+    "ProhibitedProductTypes": ["type1", "type2"],
+    "Verified": true,
+    "__v": 0
+  },
+  {
+    "Username": "Marketplace",
+    "Email": "marketplace@example.com",
+    "Password": "$2b$10$ZekuRD1SGWlJampwoeh..O2v1JOl6kixYMaH3KyMBhzYGjjfiotg.",
+    "Role": "admin",
+    "image": "default image",
+    "PhoneNumber": 1234567890,
+    "ProhibitedProductTypes": ["type1", "type2"],
+    "Verified": true,
+    "__v": 0
+  }
+]
