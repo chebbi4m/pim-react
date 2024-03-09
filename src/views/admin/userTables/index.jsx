@@ -25,7 +25,8 @@ export default function Settings() {
     };
 
     return (
-        <Box width="3000px" pt={{ base: "130px", md: "80px", xl: "80px" }}>
+        
+        <Box width="2400px" pt={{ base: "140px", md: "100px", xl: "80px" }}>
             <SimpleGrid
                 mb='20px'
                 columns={{ sm: 1, md: 2 }}

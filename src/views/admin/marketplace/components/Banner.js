@@ -11,11 +11,13 @@ export default function Banner() {
   return (
     <Flex
       direction='column'
+
       bgImage={banner}
       bgSize='cover'
       py={{ base: "30px", md: "56px" }}
       px={{ base: "30px", md: "64px" }}
-      borderRadius='30px'>
+      borderRadius='30px'
+    >
       <Text
         fontSize={{ base: "24px", md: "34px" }}
         color='white'
@@ -30,7 +32,7 @@ export default function Banner() {
         }}
         fontWeight='700'
         lineHeight={{ base: "32px", md: "42px" }}>
-        Discover, collect, and sell Instruments
+        Discover, manage and sell Products
       </Text>
       <Text
         fontSize='md'
@@ -46,29 +48,9 @@ export default function Banner() {
         fontWeight='500'
         mb='40px'
         lineHeight='28px'>
-        Discover now the latest books and instruments or start
-        selling your own!
+        Discover now the latest product and mange them here
       </Text>
-      <Flex align='center'>
-        <Button
-          bg='#00497D'
-          color='white'
-          _hover={{ bg: "blue.600" }}
-          _active={{ bg: "white" }}
-          _focus={{ bg: "white" }}
-          fontWeight='500'
-          fontSize='14px'
-          py='20px'
-          px='27'
-          me='38px'>
-          Discover now
-        </Button>
-        <Link>
-          <Text color='white' fontSize='sm' fontWeight='500'>
-            Watch video
-          </Text>
-        </Link>
-      </Flex>
+
     </Flex>
   );
 }

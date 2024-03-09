@@ -1,8 +1,7 @@
-import { useState, useMemo } from 'react'; // Import useState and useMemo hooks
+import { useState, useMemo } from 'react';
 import {
     Flex,
     Table,
-    Progress,
     Icon,
     Tbody,
     Td,
@@ -23,12 +22,15 @@ import {
 // Custom components
 import Card from "components/card/Card";
 import Menu from "components/menu/MainMenu";
+import ModifyUserModal from 'components/modal/ModifyUser'; // Import the ModifyUserModal component
 
-import { MdCheckCircle, MdCancel, MdOutlineError } from "react-icons/md";
+import { MdCheckCircle, MdEdit } from "react-icons/md"; // Changed MdOutlineError to MdEdit for modify icon
 
 export default function ColumnsTable(props) {
     const { columnsData, tableData } = props;
     const [loading, setLoading] = useState(false); // State to manage loading state of button
+    const [showModifyModal, setShowModifyModal] = useState(false); // State to control the visibility of the ModifyUserModal
+    const [selectedUser, setSelectedUser] = useState(null); // State to store the selected user for modification
 
     const columns = useMemo(() => columnsData, [columnsData]);
     const data = useMemo(() => tableData, [tableData]);
@@ -51,7 +53,7 @@ export default function ColumnsTable(props) {
         prepareRow,
         initialState,
     } = tableInstance;
-    initialState.pageSize = 5;
+    initialState.pageSize = 15;
 
     const textColor = useColorModeValue("secondaryGray.900", "white");
     const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
@@ -71,6 +73,8 @@ export default function ColumnsTable(props) {
             if (response.ok) {
                 // If request is successful, update UI or state as necessary
                 console.log('User ban status toggled successfully');
+                window.location.reload();
+
             } else {
                 // If request fails, handle error
                 console.error('Failed to toggle user ban status');
@@ -82,6 +86,16 @@ export default function ColumnsTable(props) {
         }
     };
 
+    // Function to handle modifying user
+    const handleModifyUser = (user) => {
+        // Open the ModifyUserModal with the user data
+        // You can pass the user data as props to the modal
+        console.log("Modifying user:", user);
+        // Set state to open the modal
+        setShowModifyModal(true);
+        // Store the user data in state to pass to the modal
+        setSelectedUser(user);
+    };
 
     return (
         <Card
@@ -134,25 +148,28 @@ export default function ColumnsTable(props) {
                                                 {cell.value}
                                             </Text>
                                         );
-                                    } else if (cell.column.Header === "Banned") {
+                                    } else if (cell.column.Header === "Action") {
                                         data = (
-                                            <Button
-                                                colorScheme={cell.value ? 'red' : 'green'} // Change colorScheme based on cell.value
-                                                onClick={() => {
-                                                    const userId = row.original._id;
-                                                    handleBanUnban(userId, cell.value);
-                                                }}
-                                                isLoading={loading}
-                                            >
-                                                {cell.value ? 'Unban' : 'Ban'}
-                                            </Button>
-
-
-
+                                            <>
+                                                <Button
+                                                    colorScheme={cell.value ? 'red' : 'green'}
+                                                    onClick={() => {
+                                                        const userId = row.original._id;
+                                                        handleBanUnban(userId, cell.value);
+                                                    }}
+                                                    isLoading={loading}
+                                                >
+                                                    {cell.value ? 'Unban' : 'Ban'}
+                                                </Button>
+                                                <Button
+                                                    colorScheme="blue"
+                                                    ml={2}
+                                                    onClick={() => handleModifyUser(row.original)}
+                                                >
+                                                    <Icon as={MdEdit} />
+                                                </Button>
+                                            </>
                                         );
-                                    } else if (cell.column.Header === "Password") {
-                                        // Display password as asterisks for security reasons
-                                        data = "********";
                                     } else if (cell.column.Header === "Verified") {
                                         // Display verification status as icons
                                         data = (
@@ -194,6 +211,9 @@ export default function ColumnsTable(props) {
                     })}
                 </Tbody>
             </Table>
+            {/* Render the ModifyUserModal component */}
+            <ModifyUserModal isOpen={showModifyModal} onClose={() => setShowModifyModal(false)} user={selectedUser} />
+
         </Card>
     );
 }
